@@ -59,8 +59,6 @@ class Crawler{
                     break;
             }
 
-
-
             $r=1;
             $msg="success";
         }while(false);
