@@ -1,11 +1,15 @@
 <?php
-$pageTitle = "爬虫类别";
+$pageTitle = "爬虫列表";
 $pageNavId = 8;
-$pageNavSub = 82;
+$pageNavSub = 81;
 
 include("function.php");
 include_once("include/Crawler.class.php");
-$list=Crawler::get_category_list();
+$list=Crawler::get_url_list();
+$weights=Crawler::get_weight_list();
+foreach($weights as $w){
+    $weight[$w["weight_id"]]=$w["name"];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +27,7 @@ $list=Crawler::get_category_list();
         <?php include_once("module/header.php"); ?>
         <div class="content">
             <div class="pull-right">
-                <a href="crawler_category_edit.php?act=add" class="pure-btn btn-large btn-red">新建</a>
+                <a href="crawler_url_edit.php?act=add" class="pure-btn btn-large btn-red">新建</a>
             </div>
             <h3 class="title">网址列表</h3>
             <!--            <br class="clear">-->
@@ -37,8 +41,11 @@ $list=Crawler::get_category_list();
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>类型</th>
+                                <th>剧目原名</th>
+                                <th>平台</th>
+                                <th>二级权重</th>
                                 <th>url</th>
+                                <th>时间间隔</th>
                                 <th>备注</th>
                                 <th>操作</th>
                             </tr>
@@ -46,12 +53,15 @@ $list=Crawler::get_category_list();
                             <tbody>
                             <?php foreach($list as $l) { ?>
                                 <tr>
-                                    <td><?php echo $l["category_id"];?></a></td>
-                                    <td><?php echo $l["name"];?></td>
+                                    <td><?php echo $l["url_id"];?></a></td>
+                                    <td><?php echo $l["program_default_name"];?></td>
+                                    <td><?php echo $l["platform_name"];?></td>
+                                    <td><?php echo $weight[$l["weight_id"]];?></td>
                                     <td><?php echo $l["url"];?></td>
+                                    <td><?php echo $l["interval"];?></td>
                                     <td><?php echo $l["content"];?></td>
                                     <td>
-                                        <a id="<?php echo $l["category_id"];?>" name="edit" href="javascript:;">编辑</a>
+                                        <a id="<?php echo $l["url_id"];?>" name="edit" href="javascript:;">编辑</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -84,7 +94,7 @@ $list=Crawler::get_category_list();
 <script type="text/javascript">
     var params={};
     $('a[name]').on('click',function(){
-        window.location.href='crawler_category_edit.php?act=edit&id='+$(this).attr('id');
+        window.location.href='crawler_url_edit.php?act=edit&id='+$(this).attr('id');
     });
 </script>
 </body>

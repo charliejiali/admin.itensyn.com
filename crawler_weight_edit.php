@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "新建";
 $pageNavId = 8;
-$pageNavSub = 81;
+$pageNavSub = 83;
 
 include("function.php");
 include_once("include/Crawler.class.php");
@@ -11,7 +11,7 @@ $id=trim($_GET["id"]);
 
 if($act==="edit"){
     $act_text="编辑";
-    $old=Crawler::get_category_by_id($id);
+    $old=Crawler::get_weight_by_id($id);
     if(!$old){
         die("未能获取数据");
     }
@@ -20,8 +20,11 @@ if($act==="edit"){
 }else{
     die("can't get act or id");
 }
+
+$category=Crawler::get_category_list();
+$weight=Crawler::get_system_weight_list()
 ?>
-<html>
+    <html>
 <head>
     <?php include_once("module/head_tag.php"); ?>
 </head>
@@ -48,18 +51,25 @@ if($act==="edit"){
                         </tr>
                         <tr>
                             <td class="color-red">*</td>
-                            <td>名 称</td>
-                            <td><input name="name" type="text" placeholder="" class="input-form" value="<?php echo $old["name"];?>"></td>
+                            <td>类 别 名 称</td>
+                            <td>
+                                <select id="category" class="input-form">
+                                    <option value=""></option>
+                                    <?php foreach($category as $c){ ?>
+                                        <option value="<?php echo $c["category_id"];?>" <?php if($c["category_id"]==$old["category_id"]){echo "selected";}?> ><?php echo $c["name"];?></option>
+                                    <?php } ?>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="color-red">*</td>
-                            <td>URL</td>
-                            <td><input name="url" type="text" placeholder="" class="input-form" value="<?php echo $old["url"];?>"></td>
+                            <td>二 级 权 重</td>
+                            <td><input id="weight" type="text" placeholder="" class="input-form" value="<?php echo $old["name"];?>"></td>
                         </tr>
                         <tr>
                             <td class="color-red">*</td>
                             <td>备 注</td>
-                            <td><input name="content" type="text" placeholder="" class="input-form" value="<?php echo $old["content"];?>"></td>
+                            <td><input id="content" type="text" placeholder="" class="input-form" value="<?php echo $old["content"];?>"></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -90,22 +100,23 @@ if($act==="edit"){
     $('#submit').on('click',function(){
         var input={};
 
-        $('input[type="text"]').each(function(){
-            input[$(this).attr('name')]=$(this).val();
-        });
+        input['category']=$('#category option:selected').val();
+        input['weight']=$('#weight').val();
+        input['content']=$('#content').val();
         input['act']='<?php echo $act;?>';
         input['id']='<?php echo $id;?>';
 
-        $.post('ajax/crawler_category_edit.php',input,function(json){
+        $.post('ajax/crawler_weight_edit.php',input,function(json){
             __BDP.alertBox("提示",json.msg,"","",function(){
-                if(json.r==1){window.location.href='crawler_category.php';}
+                if(json.r==1){window.location.href='crawler_weight.php';}
             })
         },'json')
     });
     $('#back').on('click',function(){
-        window.location.href="crawler_category.php";
+        window.location.href="crawler_weight.php";
     });
 </script>
 </body>
     </html><?php
+
 
