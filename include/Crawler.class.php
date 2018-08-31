@@ -17,58 +17,6 @@ class Crawler{
         $sql="select * from media_user where status=1 and type=0";
         return $db->get_results($sql,ARRAY_A);
     }
-    public static function get_prefix($weight_id,$program_default_name){
-        $db=db_connect();
-        $r=0;
-
-        do{
-            $weight_id=$db->escape($weight_id);
-            if($weight_id===""){
-                $msg="未能获取id";
-                break;
-            }
-            $sql="select * from crawler_weight where weight_id='{$weight_id}'";
-            $old_weight=$db->get_row($sql,ARRAY_A);
-            if(!$old_weight){
-                $msg="未能找到二级权重";
-                break;
-            }
-            $weight_name=$old_weight["name"];
-
-            $category_id=$old_weight["category_id"];
-            $sql="select * from crawler_category where category_id='{$category_id}'";
-            $old_category=$db->get_row($sql,ARRAY_A);
-            if(!$old_category){
-                $msg="未能找到对应类型";
-                break;
-            }
-            $category_name=$old_category["name"];
-            $url=$old_category["url"];
-
-            $program_default_name=$db->escape($program_default_name);
-            $sql="select * from program where program_default_name='{$program_default_name}'";
-            $program=$db->get_row($sql,ARRAY_A);
-            if(!$program){
-                $msg="未能找到当前剧目";
-                break;
-            }
-
-            switch(trim($category_name)){
-                case "微指数":
-
-                    break;
-            }
-
-            $r=1;
-            $msg="success";
-        }while(false);
-
-        return array(
-            "r"=>$r,
-            "msg"=>$msg,
-            "url"=>$url
-        );
-    }
     public static function url_edit($act,$id,$program_default_name,$platform,$weight,$url,$interval,$content){
         $db=db_connect();
         $r=0;
