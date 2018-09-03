@@ -47,11 +47,11 @@ $unaudit_count=Input::get_unaudit();
             <a href="recommend_user.php" class="pure-menu-link <?php if ($pageNavSub == 62) {echo " active";} ?>">推 荐 用 户</a>
             <a href="recommend_rule.php" class="pure-menu-link <?php if ($pageNavSub == 63) {echo " active";} ?>">推 荐 规 则</a>
         </li>
-        <li class="pure-menu-item <?php if ($pageNavId == 8) {echo " pure-menu-selected";} ?>"><a href="crawler_category.php" class="pure-menu-link"><span class="icon-audit ico-recommend"></span>爬 虫 管 理</a></li>
+        <li class="pure-menu-item <?php if ($pageNavId == 8) {echo " pure-menu-selected";} ?>"><a href="crawler_url.php" class="pure-menu-link"><span class="icon-audit ico-recommend"></span>爬 虫 管 理</a></li>
         <li class="pure-menu-item top-ten <?php if ($pageNavId == 8) {echo " pure-menu-selected";} ?>">
-            <a href="crawler_category.php" class="pure-menu-link <?php if ($pageNavSub == 81) {echo " active";} ?>">爬 虫 分 类</a>
-            <a href="recommend_user.php" class="pure-menu-link <?php if ($pageNavSub == 82) {echo " active";} ?>">爬 虫 列 表</a>
-            <a href="recommend_rule.php" class="pure-menu-link <?php if ($pageNavSub == 83) {echo " active";} ?>">推 荐 规 则</a>
+            <a href="crawler_url.php" class="pure-menu-link <?php if ($pageNavSub == 81) {echo " active";} ?>">列 表</a>
+            <a href="crawler_category.php" class="pure-menu-link <?php if ($pageNavSub == 82) {echo " active";} ?>">类 别</a>
+            <a href="crawler_weight.php" class="pure-menu-link <?php if ($pageNavSub == 83) {echo " active";} ?>">二 级 权 重</a>
         </li>
 
     </ul>
