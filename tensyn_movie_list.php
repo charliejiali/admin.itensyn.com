@@ -7,7 +7,7 @@ include("function.php");
 include("include/Tensyn.class.php");
 
 $page=isset($_GET["p"])?intval($_GET["p"]):1;
-$pagecount=isset($_GET["c"])?intval($_GET["c"]):10; //每页显示数量
+$pagecount=isset($_GET["c"])?intval($_GET["c"]):5; //每页显示数量
 $offset=($page-1)*$pagecount;
 
 $result=Tensyn::get_valid_list($offset,$pagecount,$_GET); 
@@ -89,6 +89,7 @@ $upload_buttons=array("poster","male","female","host","guest");
                     <div class="pure-u-1-3">
                         <input value="<?php echo $_GET["program_name"];?>" id="program_name" type="text" placeholder="剧目名称" class="input-label" style="width: 170px;">
                         <button id="btn_search" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">查询</button>
+                        <button id="export" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">导出</button>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -100,7 +101,7 @@ $upload_buttons=array("poster","male","female","host","guest");
             <div class="table-box">
                 <div class="table-list">
                     <div id="table-data">
-                        <table class="pure-table pure-table-line pure-table-striped pure-table-hover" style="width: 18600px">
+                        <table class="pure-table pure-table-line pure-table-striped pure-table-hover" style="width: 20000px">
                             <thead>
                             <tr>
                                 <th class="td-head" style="width: 120px;">剧目名称</th>

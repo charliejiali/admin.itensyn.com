@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="af3b55ba-3c66-4092-b316-816159b56568" name="admin.itensyn.com" url="http://211.99.237.162">
+        <fileTransfer host="211.99.237.162" port="21" rootFolder="/demo/2016/yili/admin.itensyn.com" password="df99dfcfdfcedfc9df8edff8dfecdffcdf98df9adf9bdf9fdf87df9adf93df87df9bdf9ddfdadfc7" username="zhangjiali_ftp">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

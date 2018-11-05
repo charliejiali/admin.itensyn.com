@@ -1,0 +1,17 @@
+
+.table-info {
+    background: #f0f1f6;
+}
+
+.table-info td.head {
+    width: 140px;
+    color: #fff;
+    background: #5659c0;
+}
+
+
+.table-info td{
+    padding: 16px;
+}
+
+

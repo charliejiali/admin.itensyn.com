@@ -1,0 +1,104 @@
+.mfp-fade.mfp-wrap .mfp-content,
+.mfp-fade.mfp-bg {
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.mfp-fade.mfp-bg.mfp-ready {
+    opacity: 0.8;
+}
+
+.mfp-fade.mfp-bg.mfp-removing {
+    opacity: 0;
+}
+
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+    opacity: 1;
+}
+
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+    opacity: 0;
+}
+
+.win {
+    background: #ffffff;
+    position: relative;
+    padding: 0;
+    width: auto;
+    margin: 0 auto;
+}
+
+.win h3.heading {
+    line-height: 130%;
+    margin-top: 0;
+    background: #5659c0;
+    color: #FFFFFF;
+    padding: 12px 20px;
+}
+
+.win.win-alert {
+    max-width: 360px;
+}
+
+.win.win-alert .box-alert {
+    padding: 3em 2em 1em 2em;
+}
+
+.win .box-footer {
+    padding: 0.5em 2em 3em 2em;
+    text-align: center;
+}
+
+.win-form {
+    width: 540px;
+    padding: 0px;
+}
+
+.win-form .win-content {
+    text-align: center;
+}
+
+.win-form .box-icon {
+    margin-bottom: 1em;
+}
+
+.win-form input {
+    color: #666;
+    line-height: 160%;
+    padding: 0.3em 0.8em;
+    background: #fff;
+    border: 1px solid #8392a0;
+    border-radius: 0;
+    width: 65%;
+}
+
+/*
+.win-form ::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+.win-form ::-moz-placeholder {
+    color: #ccc;
+}
+
+.win-form :-moz-placeholder {
+    color: #ccc;
+}
+*/
+.win-form .box-form {
+    color: #39546c;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.win-form .box-form .error-msg {
+    color: #b90000;
+    text-align: center;
+    display: none;
+    margin: 1em auto;
+}
+

@@ -1,0 +1,39 @@
+
+.select-list {
+    border: 1px solid #5659c0;
+}
+
+.select-list .list-group {
+    overflow: scroll;
+    height: 300px;
+    width: 100%;
+}
+
+.select-list .list-group .list-group-item {
+    line-height: 150%;
+    display: block;
+    border-bottom: 1px solid #cccdec;
+    padding: 9px 20px;
+}
+
+.select-list .list-group .list-group-item.active {
+    background: #f3f4f9;
+}
+
+.select-tags {
+    background: #5659c0;
+    line-height: 32px;
+    padding: 9px;
+    color: #fff;
+}
+
+.select-tags .select-tag {
+    color: #5659c0;
+    background: #ffffff;
+    padding: 0.3em 1.2em;
+    margin: 0.32em 0.5em 0.26em 1.2em;
+    border-radius: 15px;
+    display: inline-block;
+    position: relative;
+    line-height: 16px;
+}

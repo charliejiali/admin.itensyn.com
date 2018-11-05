@@ -381,7 +381,6 @@ class Program{
 	}
 	public static function get_programs($options=array()){
 		$db=db_connect();
-		$user_id=$db->escape($user_id);
 
 		$head=" select * ";
 		$body=" from media_program_log ";

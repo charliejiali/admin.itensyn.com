@@ -502,6 +502,7 @@ class Program{
 		    		}
 		    	}
 		    	$input=array_combine($en_data,$rowData);
+		    	
 		    	$re=self::add($user,$input);
 		    	if($re["r"]==0){
 		    		$r=0;

@@ -1,0 +1,321 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/********** layout *****/
+
+.wrap {
+    margin: 0 auto;
+    background: #f3f4f9;
+}
+
+.owl-mode {
+    width: 184px;
+    position: absolute;
+}
+
+.owl-content {
+    margin-left: 184px;
+    background: #ffffff;
+    position: relative;
+}
+
+.owl-mode .logo {
+    width: 100%;
+    height: 148px;
+    background: #5247bd url("../images/logo.png") no-repeat center;
+    display: block;
+}
+
+.content {
+    position: relative;
+    margin: 0 auto;
+    padding: 36px 20px 50px 40px;
+    border-bottom: 1px solid #eaeff5;
+}
+
+.content.gray {
+    background: #fbfbfd;
+}
+.content .box-btns {
+    padding: 2em;
+    text-align: center;
+}
+h2.title {
+    font-size: 24px;
+    color: #fff;
+    font-family: "Microsoft YaHei", STXihei, "微软雅黑", "华文细黑", Tahoma, Verdana, Arial, sans-serif;
+    line-height: 100%;
+    font-weight: 400;
+    margin: 0.5em auto 1.2em auto;
+    letter-spacing: 1px;
+}
+
+h3.title {
+    font-size: 18px;
+    color: #00b1f4;
+    font-family: "Microsoft YaHei", STXihei, "微软雅黑", "华文细黑", Tahoma, Verdana, Arial, sans-serif;
+    line-height: 100%;
+    font-weight: 400;
+    margin: 0.5em auto 1.2em auto;
+    letter-spacing: 1px;
+}
+
+@media (min-width: 769px) {
+    .wrap {
+        max-width: 1200px;
+        min-width: 1000px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrap {
+        width: 100%;
+        margin: 0;
+    }
+
+    .content {
+        width: auto;
+    }
+
+    .m-content {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+}
+
+.module {
+    margin-bottom: 20px;
+    clear: both;
+}
+
+.social {
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+/*global*/
+
+.clear {
+    clear: both;
+}
+
+p.space {
+    margin: 1.5em auto;
+}
+
+/*** 浅色注释行 ***/
+.txt-comment, .txt-comment a:link, .txt-comment a:visited {
+    color: #b0b0b0;
+    font-size: 12px;
+}
+
+.txt-comment a:hover, .txt-comment a:focus {
+    color: #4fb4df;
+}
+
+.txt-comment .num {
+    margin-right: 15px;
+}
+
+/*text color*/
+
+.color-mark, .color-mark a, .color-mark a:hover, .color-mark a:focus {
+    color: #b39664
+}
+
+.color-red, .color-red a, .color-red a:hover, .color-red a:focus {
+    color: #d92942
+}
+
+.color-blue, .color-blue a, .color-blue a:focus {
+    color: #00a2eb;
+    text-decoration: none;
+}
+
+.color-blue a:hover {
+    color: #0095df;
+    text-decoration: underline;
+}
+
+.color-gray {
+    color: #999
+}
+
+/*** 图标组 ***/
+.loading {
+    background: url("../images/loading.gif") no-repeat center;
+}
+
+.icon-arrow {
+    background: url("../images/icon_arrow_down.png") no-repeat center;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    margin-left: -17px;
+}
+
+.icon-arrow:hover {
+    filter: alpha(opacity=75);
+    -moz-opacity: 0.75;
+    -khtml-opacity: 0.75;
+    opacity: 0.75;
+}
+
+.icon-tools {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin: 2px 5px;
+    vertical-align: middle;
+    background: url("../images/icon_tools.png") no-repeat 0 0;
+}
+
+.icon-tools.ico-home {
+    background-position: 0 0;
+}
+
+.icon-tools.ico-movie {
+    background-position: 0 -50px;
+}
+
+.icon-tools.ico-edit {
+    background-position: 0 -100px;
+}
+
+.icon-tools.ico-file {
+    background-position: 0 -150px;
+}
+
+.icon-tools.ico-logout {
+    background-position: 0 -200px;
+}
+
+.icon-tools.ico-avatar {
+    background-position: 0 -250px;
+}
+
+.icon-tools.ico-arrow-l {
+    width: 16px;
+    height: 16px;
+    background-position: 0 -300px;
+}
+
+.icon-tools.ico-arrow-u {
+    width: 16px;
+    height: 16px;
+    background-position: 0 -325px;
+}
+
+.icon-tools.ico-arrow-d {
+    width: 16px;
+    height: 16px;
+    background-position: -25px -325px;
+}
+
+.icon-tools.ico-top10 {
+    width: 30px;
+    height: 30px;
+    background-position: 0 -350px;
+}
+
+a:hover .icon-tools {
+    background-position-x: -50px;
+}
+
+a:hover .icon-tools.ico-arrow-d {
+    background-position-x: -75px;
+}
+
+.icon-audit {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin: 2px 5px;
+    vertical-align: middle;
+    background: url("../images/icon_tools_audit.png") no-repeat 0 0;
+}
+
+.icon-audit.ico-data {
+    background-position: 0 -100px;
+}
+
+.icon-audit.ico-message {
+    background-position: 0 -150px;
+}
+
+.icon-audit.ico-setting {
+    background-position: 0 -200px;
+}
+
+a:hover .icon-audit {
+    background-position-x: -50px;
+}
+
+
+/* 选择组件 */
+.select-group {
+    list-style: none;
+    padding: 0;
+    margin: 0.2em 0;
+}
+
+.select-group .option {
+    list-style: none;
+    min-width: 30%;
+    margin-right: 0.2em;
+    margin-bottom: 0.5em;
+    padding: 0.4em 0.6em;
+    border: 1px solid #8a8a8a;
+    line-height: 150%;
+    display: inline-block;
+    *display: inline; /* IE6 7 block   */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.select-group .option.active {
+    border: 2px solid #b39664;
+    padding: 0.33em 0.53em;
+    color: #b39664;
+}
+
+/* 分页组件 */
+.pagination {
+    font-size: 80%;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.pagination a, .pagination span {
+    text-decoration: none;
+    text-indent: 9999px;
+    display: inline-block;
+    /*float: left;*/
+    padding: 0;
+    margin: 8px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.pagination .current {
+    background: #b90000;
+    color: #fff;
+}
+
+.pagination .current.prev, .pagination .current.next {
+    color: #999;
+    border-color: #999;
+    background: #fff;
+}

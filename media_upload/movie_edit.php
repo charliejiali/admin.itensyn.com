@@ -452,7 +452,7 @@ $cols=array("program_name",
     });
 
     $('#export').on('click',function(){
-        window.open('export/movie_edit.php'); 
+        window.open('export/movie_edit.php?user_id='+user_id); 
     });
     $('#template').on('click',function(){
         window.open('excel_template.xlsx');

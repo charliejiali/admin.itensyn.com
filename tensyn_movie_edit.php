@@ -137,7 +137,7 @@ $cols=array("program_name",
             </div> -->
             <!--            <h3 class="title">剧目列表</h3>-->
             <div>
-                <button id="<?php if(count($unvalids)===0){echo "audit";}?>" type="button" class="pure-btn <?php if(count($unvalids)>0){echo "pure-btn-disabled";}?> " style="width: 100px; margin-right: 1em;">提交审核</button>
+                <button type="button" class="pure-btn <?php if(count($unvalids)>0){echo "pure-btn-disabled";}?> " id="<?php if(count($unvalids)===0){echo "audit";}?>" style="width: 100px; margin-right: 1em;">提交审核</button>
                 <button id="export" type="button" class="pure-btn">导出录入单</button>
             </div>
             <br class="clear">

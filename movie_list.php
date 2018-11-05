@@ -7,7 +7,7 @@ include("function.php");
 include("include/Program.class.php");
 
 $page=isset($_GET["p"])?intval($_GET["p"]):1;
-$pagecount=isset($_GET["c"])?intval($_GET["c"]):10; //每页显示数量
+$pagecount=isset($_GET["c"])?intval($_GET["c"]):5; //每页显示数量
 $offset=($page-1)*$pagecount;
 
 $result=Program::get_valid_list($offset,$pagecount,$_GET);
@@ -108,7 +108,7 @@ $type_status=array(
             <div class="table-box">
                 <div class="table-list">
                     <div id="table-data">
-                        <table class="pure-table pure-table-line pure-table-striped pure-table-hover" style="width: 3000px">  
+                        <table class="pure-table pure-table-line pure-table-striped pure-table-hover" style="width: 3500px">  
                             <thead>
                             <tr>
                                 <th class="td-head" style="width: 50px;"></th>
@@ -284,7 +284,7 @@ $type_status=array(
         window.location.href='movie_edit.php';
     });
     $('#export').on('click',function(){
-        window.open('export/movie_list.php?'+$.param(params));
+        window.open('export/media_movie_list.php?'+$.param(params));
     });
      $('#start_date').datepicker({
         dateFormat:'yy-mm-dd' 

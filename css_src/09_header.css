@@ -1,0 +1,105 @@
+
+.header {
+    height: 68px;
+    /*width: 100%;*/
+    /*position: fixed;*/
+    /*top: 0; left: 0;*/
+    background: #5659c0;
+    /*z-index: 90;*/
+    /*box-shadow: 1px 0px 1px rgba(136, 136, 136, 0.5);*/
+}
+
+/* 菜单 重置 */
+
+.menu-user {
+    float: right; margin-right: 20px;
+    color: #fff;
+}
+
+.menu-user .pure-menu-link {
+    color: #fff;
+    line-height: 64px;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+}
+
+.menu-user .pure-menu-children {
+    background: #4d4d8f;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
+.menu-user .pure-menu-children .pure-menu-link {
+    line-height: 200%;
+}
+
+.menu-user .pure-menu-active, .menu-user .pure-menu-link:hover {
+    /*color: #9a95d8;*/
+}
+
+.menu-user .pure-menu-selected .pure-menu-link {
+    /*color: #9a95d8;*/
+}
+
+.menu-user .nav-line {
+    border-left: 1px solid #9a95d8;
+    margin: 0 0.8em 0 1.2em;
+}
+
+.menu-user .ico-qq {
+    width: 19px; height: 19px;
+    display: inline-block;
+    background: url("../images/ico_qq.png") no-repeat center;
+    vertical-align: top;
+}
+
+.menu-mode {
+    width: 100%;
+}
+
+.menu-mode .pure-menu-link {
+    color: #39546c;
+    line-height: 50px;
+    font-size: 15px;
+    padding: 12px 20px 10px 20px;
+    border-left: 3px solid #f3f4f9;
+}
+
+.menu-mode .pure-menu-active, .pure-menu-link:hover {
+    color: #00b1f4;
+}
+
+.menu-mode .pure-menu-selected .pure-menu-link {
+    color: #00b1f4;
+    background: #fff;
+    border-left: 3px solid #00b1f4;
+}
+
+.menu-mode .top-ten {
+    display: none;
+    padding: 4px 0px 15px 0px;
+    background: #00b1f4;
+}
+
+.menu-mode .pure-menu-selected.top-ten {
+    display: block;
+}
+
+.menu-mode .top-ten .pure-menu-link {
+    color: #0174a9;
+    line-height: 24px;
+    font-size: 13px;
+    padding: 5px 20px 4px 60px;
+    background: #00b1f4;
+}
+
+.menu-mode .top-ten .pure-menu-link:hover {
+    background: #00abee;
+}
+
+.menu-mode .top-ten .pure-menu-link.active {
+    color: #fff;
+    background: url("../images/ico_list_arrow_w.png") no-repeat 48px 13px;
+}

@@ -1,0 +1,27 @@
+致我们单纯的小美好(腾讯视频):36.123735,2018-06-29 15:35:53更新成功致我们单纯的小美好(腾讯视频):23,2018-06-29 15:35:53更新成功致我们单纯的小美好(腾讯视频)累计播放量/play2=36.124216;致我们单纯的小美好(腾讯视频)已播集数/play4=23;更新失败致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124282;/致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 16:22:41  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124307;/2018-06-29 16:22:41  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 16:25:03  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124339;
+/2018-06-29 16:25:03  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+
+2018-06-29 16:29:56  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124459;
+2018-06-29 16:29:56  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 16:42:12  致我们单纯的小美好(腾讯视频)program_default_name=致我们单纯的小美好;platform=腾讯视频;team_main=;male_leader=胡一天;female_leader=王梓薇;host=;guest=;play2=;play3=2;channel1=122;channel2=;channel3=0;platform1=19619;platform2=3755.4;platform3=;platform4=;platform5=20000;platform6=4500;platform7=;platform8=;platform9=;platform10=;platform11=;platform12=;make1=10554.287013;make2=10281.177743;make3=3600;make4=;make5=0;make6=;make7=;resource1=;resource2=;resource3=;resource4=;attention1=4.5;attention2=1;attention3=;attention4=;attention5=;IP1=500;IP2=;IP3=;IP4=;IP5=;IP6=;IP7=;IP8=;IP9=;match1=;match2=;match3=;star1=69;star2=;star3=0;star4=0;star5=0;star6=0;star7=0.03;star8=0.03;star9=0;star10=0;star11=;star12=;star13=;star14=;star15=;star16=;star17=;star18=;topic1=;topic2=50000;topic3=0.3;topic4=0.03;topic5=;topic6=;topic7=;topic8=;topic9=;topic10=;male_main=;female_main=;host_main=;guest_main=;更新
+2018-06-29 16:42:12  致我们单纯的小美好(腾讯视频)program_default_name=致我们单纯的小美好;platform=腾讯视频;team_main=;male_leader=胡一天;female_leader=王梓薇;host=;guest=;play2=;play3=2;channel1=122;channel2=;channel3=0;platform1=19619;platform2=3755.4;platform3=;platform4=;platform5=20000;platform6=4500;platform7=;platform8=;platform9=;platform10=;platform11=;platform12=;make1=;make2=10554.287013;make3=3600;make4=;make5=0;make6=;make7=;resource1=;resource2=;resource3=;resource4=;attention1=4.5;attention2=1;attention3=;attention4=;attention5=;IP1=500;IP2=;IP3=;IP4=;IP5=;IP6=;IP7=;IP8=;IP9=;match1=;match2=;match3=;star1=69;star2=;star3=0;star4=0;star5=0;star6=0;star7=0.03;star8=0.03;star9=0;star10=0;star11=;star12=;star13=;star14=;star15=;star16=;star17=;star18=;topic1=;topic2=50000;topic3=0.3;topic4=0.03;topic5=;topic6=;topic7=;topic8=;topic9=;topic10=;male_main=;female_main=;host_main=;guest_main=;更新
+2018-06-29 16:42:12  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124554;
+2018-06-29 16:42:12  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 16:44:40  致我们单纯的小美好(腾讯视频)program_default_name=致我们单纯的小美好;platform=腾讯视频;team_main=;male_leader=胡一天;female_leader=王梓薇;host=;guest=;play2=;play3=2;channel1=122;channel2=;channel3=0;platform1=19619;platform2=3755.4;platform3=;platform4=;platform5=20000;platform6=4500;platform7=;platform8=;platform9=;platform10=;platform11=;platform12=;make1=10554.29991;make2=10281.177743;make3=3600;make4=;make5=0;make6=;make7=;resource1=;resource2=;resource3=;resource4=;attention1=4.5;attention2=1;attention3=;attention4=;attention5=;IP1=500;IP2=;IP3=;IP4=;IP5=;IP6=;IP7=;IP8=;IP9=;match1=;match2=;match3=;star1=69;star2=;star3=0;star4=0;star5=0;star6=0;star7=0.03;star8=0.03;star9=0;star10=0;star11=;star12=;star13=;star14=;star15=;star16=;star17=;star18=;topic1=;topic2=50000;topic3=0.3;topic4=0.03;topic5=;topic6=;topic7=;topic8=;topic9=;topic10=;male_main=;female_main=;host_main=;guest_main=;更新
+2018-06-29 16:44:40  致我们单纯的小美好(腾讯视频)program_default_name=致我们单纯的小美好;platform=腾讯视频;team_main=;male_leader=胡一天;female_leader=王梓薇;host=;guest=;play2=;play3=2;channel1=122;channel2=;channel3=0;platform1=19619;platform2=3755.4;platform3=;platform4=;platform5=20000;platform6=4500;platform7=;platform8=;platform9=;platform10=;platform11=;platform12=;make1=;make2=10554.29991;make3=3600;make4=;make5=0;make6=;make7=;resource1=;resource2=;resource3=;resource4=;attention1=4.5;attention2=1;attention3=;attention4=;attention5=;IP1=500;IP2=;IP3=;IP4=;IP5=;IP6=;IP7=;IP8=;IP9=;match1=;match2=;match3=;star1=69;star2=;star3=0;star4=0;star5=0;star6=0;star7=0.03;star8=0.03;star9=0;star10=0;star11=;star12=;star13=;star14=;star15=;star16=;star17=;star18=;topic1=;topic2=50000;topic3=0.3;topic4=0.03;topic5=;topic6=;topic7=;topic8=;topic9=;topic10=;male_main=;female_main=;host_main=;guest_main=;更新
+2018-06-29 16:44:40  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124605;
+2018-06-29 16:44:40  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 16:47:38  致我们单纯的小美好(腾讯视频)制作团队代表作单集播放量(make1)=10554.30833;更新
+2018-06-29 16:47:38  致我们单纯的小美好(腾讯视频)男主演代表作单集播放量(make2)=10554.30833;更新
+2018-06-29 16:47:38  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124616;
+2018-06-29 16:47:38  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 17:01:47  致我们单纯的小美好(腾讯视频)制作团队代表作单集播放量(make1)=10554.343707;插入成功
+2018-06-29 17:01:47  致我们单纯的小美好(腾讯视频)男主演代表作单集播放量(make2)=10554.343707;更新
+2018-06-29 17:01:47  致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.12481;
+2018-06-29 17:01:48  致我们单纯的小美好(腾讯视频)已播集数(play4)=23;
+2018-06-29 17:03:47 tensyn_program_log  致我们单纯的小美好(腾讯视频)制作团队代表作单集播放量(make1)=10554.35435;更新
+2018-06-29 17:03:47 tensyn_program_log  致我们单纯的小美好(腾讯视频)男主演代表作单集播放量(make2)=10554.35435;更新
+2018-06-29 17:03:47 media_program 致我们单纯的小美好(腾讯视频)累计播放量(play2)=36.124817;
+2018-06-29 17:03:47 media_program 致我们单纯的小美好(腾讯视频)已播集数(play4)=23;

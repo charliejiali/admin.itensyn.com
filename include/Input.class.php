@@ -146,6 +146,18 @@ class Input{
 				}
 				$r=$db->add("media_program",$u);
 
+				// 爬虫数据
+				$sql="select * from crawler_video where program_name='{$program_default_name}' ";
+				$crawler=$db->get_row($sql,ARRAY_A);
+				if(!$crawler){
+					$db->add('crawler_video',array( 
+						"program_name"=>$program_default_name,
+						"create_time"=>date("Y-m-d H:i:s"),
+						"play_status"=>$u["start_type"],
+						"crawler_status"=>"未完成"
+					));
+				}
+
 				// 腾信名称
 				$sql="select * from tensyn_program_name where program_default_name='{$program_default_name}' and platform='{$platform}' ";
 				$tensyn_program_name=$db->get_row($sql,ARRAY_A);

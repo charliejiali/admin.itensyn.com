@@ -13,7 +13,7 @@ $unaudit_count=Input::get_unaudit();
 
         <li class="pure-menu-item <?php if ($pageNavId == 7) {echo " pure-menu-selected";} ?>"><a href="media_upload/movie_edit.php" class="pure-menu-link"><span class="icon-audit ico-data"></span>媒 体 录 入</a></li>
         <li class="pure-menu-item top-ten <?php if ($pageNavId == 7) {echo " pure-menu-selected";} ?>">
-            <a href="media_upload/movie_edit.php" class="pure-menu-link <?php if ($pageNavSub == 71) {echo " active";} ?>">媒体数据录入</a>
+            <a href="media_upload/movie_edit.php" class="pure-menu-link <?php if ($pageNavSub == 7) {echo " active";} ?>">媒体数据录入</a>
         </li> 
 
         <li class="pure-menu-item <?php if ($pageNavId == 2) {echo " pure-menu-selected";} ?>"><a href="movie_log.php" class="pure-menu-link"><span class="icon-tools ico-movie"></span>媒 体 数 据</a>
@@ -47,11 +47,13 @@ $unaudit_count=Input::get_unaudit();
             <a href="recommend_user.php" class="pure-menu-link <?php if ($pageNavSub == 62) {echo " active";} ?>">推 荐 用 户</a>
             <a href="recommend_rule.php" class="pure-menu-link <?php if ($pageNavSub == 63) {echo " active";} ?>">推 荐 规 则</a>
         </li>
-        <li class="pure-menu-item <?php if ($pageNavId == 8) {echo " pure-menu-selected";} ?>"><a href="crawler_url.php" class="pure-menu-link"><span class="icon-audit ico-recommend"></span>爬 虫 管 理</a></li>
+        <li class="pure-menu-item <?php if ($pageNavId == 8) {echo " pure-menu-selected";} ?>"><a href="crawler_video.php" class="pure-menu-link"><span class="icon-audit ico-recommend"></span>爬 虫 设 置</a></li>
         <li class="pure-menu-item top-ten <?php if ($pageNavId == 8) {echo " pure-menu-selected";} ?>">
-            <a href="crawler_url.php" class="pure-menu-link <?php if ($pageNavSub == 81) {echo " active";} ?>">列 表</a>
-            <a href="crawler_category.php" class="pure-menu-link <?php if ($pageNavSub == 82) {echo " active";} ?>">类 别</a>
-            <a href="crawler_weight.php" class="pure-menu-link <?php if ($pageNavSub == 83) {echo " active";} ?>">二 级 权 重</a>
+            <!-- <a href="crawler_video_masterpiece.php" class="pure-menu-link <?php if ($pageNavSub == 81) {echo " active";} ?>">代 表 作</a> -->
+            <a href="crawler_video.php" class="pure-menu-link <?php if ($pageNavSub == 81) {echo " active";} ?>">视 频</a>
+            <a href="crawler_weibo.php" class="pure-menu-link <?php if ($pageNavSub == 82) {echo " active";} ?>">微 博</a>
+            <a href="crawler_tieba.php" class="pure-menu-link <?php if ($pageNavSub == 83) {echo " active";} ?>">贴 吧</a>
+            <!-- <a href="crawler_index.php" class="pure-menu-link <?php if ($pageNavSub == 84) {echo " active";} ?>">指 数</a> -->
         </li>
 
     </ul>

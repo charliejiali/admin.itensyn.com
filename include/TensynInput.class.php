@@ -65,7 +65,18 @@ class TensynInput{
 					$sql=" delete from tensyn_program where program_default_name='{$program_default_name}' and platform='{$platform}' ";
 					$r=$db->query($sql);
 				}
+
+				// if($program_id=='3846'){
+				// 	global $__db;
+				// 	$db->disconnect();
+				// 	$__db=null;
+				// 	$db=db_connect();
+				// 	print_r($db);
+				// }
 				$r=$db->add("tensyn_program",$u);
+				// if($program_id=='3846'){
+				// 	print_r($db);
+				// }
 
 				$sql=" select * from tensyn_attach_log where program_id='{$program_id}' ";
 				$attachs=$db->get_results($sql,ARRAY_A);
@@ -107,7 +118,7 @@ class TensynInput{
 					}
 				}
 				// 上线 
-				$sql="select * from program where program_default_name='{$program_default_name}' and platform_name='{$platform}' limit 1";
+				$sql="select * from program where program_default_name='{$program_default_name}' and platform_name='{$platform}' ";
 				$old_program=$db->get_row($sql,ARRAY_A);
 				if($old_program){
 					$old_program_id=$old_program["program_id"];
@@ -153,6 +164,9 @@ class TensynInput{
 				} 
 				$sql="select * from media_program where program_default_name='{$program_default_name}' and platform='{$platform}' limit 1";
 				$media=$db->get_row($sql,ARRAY_A);
+				print_r($db->last_error);
+				// echo $sql;
+				// print_r($media);  
 				foreach($media as $k=>$v){
 					if(array_key_exists($media_switch[$k],$field_list)){
 						if(in_array($media_switch[$k],$weights)){
@@ -173,10 +187,11 @@ class TensynInput{
 				}
 				$data["media_id"]=$media["program_id"];
 				$data["tensyn_id"]=$program_id;
+				// print_r($data);
 				$db->add("program",$data);
 				$program_id=$db->insert_id;
 				$program=array();
-				$program=$data;  
+				$program=$data;
 				$program["program_id"]=$program_id;
 				include_once("OWLProgram.class.php");
 				$score=OWLProgram::get_result(1,$program,"");

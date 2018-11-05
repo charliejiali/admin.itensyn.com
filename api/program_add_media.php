@@ -3,12 +3,12 @@ $public_page=true;
 include("../function.php");
 $db=db_connect();
 $r=0;
-$msg="";
+$msg="media ";
 $msg_array=array();
 
 $data=$_REQUEST["data"];
 
-$dir="crawler_log/".date("Ym");
+$dir="crawl_log/".date("Ym");
 $file=$dir."/".date("Ymd").".txt";
 
 if(!file_exists($dir)){
@@ -31,10 +31,6 @@ do{
 
 	$sql="select * from media_field_cn_list";
 	$media_fields=$db->get_results($sql,ARRAY_A);
-	if(!$media_fields){
-		$msg="未能获取系统数据字段表";
-		break;
-	}
 
 	foreach($media_fields as $media_field){
 		$fields[$media_field["field"]]=$media_field["name"];
@@ -45,25 +41,18 @@ do{
 			$program_default_name=$db->escape($d["program_default_name"]);
 			$platform=isset($d["platform"])?$db->escape($d["platform"]):"";
 
-			$log=date("Y-m-d H:i:s")." media_program ".$program_default_name."(".$platform.")";
-
 			$sql="select * from media_program where program_default_name='{$program_default_name}'";
 			if($platform!==""){
 				$sql.=" and platform='{$platform}' ";
 			}
 			$programs=$db->get_results($sql,ARRAY_A);
-			if(!$programs){
-				$log.="不在media_program表中;";
-				file_put_contents($file,$log.PHP_EOL, FILE_APPEND);
-				continue;
-			}
+			if(!$programs){continue;}
 
 			$update=array();
 			foreach($d as $cn=>$value){
 				foreach($fields as $field=>$name){
 					if(strpos($name,$cn)!==false){
 						$update[$field]=$value;
-						$log.="{$cn}({$field})={$value};";
 					}
 				}
 			}
@@ -71,12 +60,14 @@ do{
 			if($platform!==""){
 				$key["platform"]=$platform;
 			}
-			$update["crawler_update_time"]=date("Y-m-d H:i:s");
+			if(count($update)>0){
+				$update["update_date"]=date("Y-m-d");
+			}
 			$re=$db->update("media_program",$update,$key);
 			if(!$re){
 				$msg="{$program_default_name}({$platform}):".implode(",",$update)."更新失败";
+				break;
 			}
-			file_put_contents($file,$log.PHP_EOL, FILE_APPEND);
 		}
 	}else{
 		$msg="no data";
@@ -87,6 +78,7 @@ do{
 	$msg="success";
 }while(false);
 
+file_put_contents($file, $msg, FILE_APPEND);
 
 echo json_encode(array(
 	"r"=>$r,

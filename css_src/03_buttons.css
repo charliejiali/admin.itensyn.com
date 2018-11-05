@@ -1,0 +1,180 @@
+/*
+Pure v0.6.0
+Copyright 2014 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+https://github.com/yahoo/pure/blob/master/LICENSE.md
+*/
+.pure-btn {
+    /* Structure */
+    display: inline-block;
+    zoom: 1;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+/* Firefox: Get rid of the inner focus border */
+.pure-btn::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+/*csslint outline-none:false*/
+
+.pure-btn {
+    font-family: inherit;
+    padding: 0.4em 1.6em 0.5em 1.6em;
+    color: #fff; /* rgba not supported (IE 8) */
+    text-decoration: none;
+    border: none;
+    border-radius: 20px;
+    background: #5659c0;
+}
+
+.pure-btn:hover {
+    text-decoration: none;
+    /*border: solid 2px #014898;*/
+    background: #6c6fce;
+    /*border: 1px solid #9f0a10;*/
+}
+
+.pure-btn:focus {
+    outline: 0;
+}
+
+.pure-btn-active,
+.pure-btn:active {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.20) inset;
+    /*border-color: #000;*/
+}
+
+/* Firefox: Get rid of the inner focus border */
+.pure-btn::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.btn-xsmall {
+    font-size: 70%;
+}
+
+.btn-small {
+    font-size: 85%;
+}
+
+.btn-input {
+    font-size: 100%;
+}
+
+.btn-large {
+    font-size: 120%;
+}
+
+.btn-xlarge {
+    font-size: 140%;
+}
+
+/**********/
+.btn-success,
+.btn-error,
+.btn-warning,
+.btn-red,
+.btn-submit,
+.btn-reset {
+    border: 0;
+    min-width: 80px;
+    padding: 0.43em 2.2em 0.5em 2.2em;
+    color: #fff;
+    vertical-align: middle;
+    /*box-sizing: border-box;*/
+}
+
+.btn-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.btn-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.btn-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.btn-min { font-size: 0.8em; }
+
+.btn-min,
+.btn-red {
+    border-radius: 20px;
+    color: #fff;
+    background: #d92942;
+}
+
+.btn-min:hover,
+.btn-red:hover {
+    color: #ffe1ef;
+    background: #c33552;
+}
+
+.btn-link {
+    padding: 0.43em 1.6em 0.5em 1.6em;
+    border-radius: 20px;
+    color: #d92942;
+    background: #fff;
+    border: 0;
+}
+
+.btn-link:hover {
+    color: #d92942;
+    background: #f1dade;
+}
+
+/* 部分按钮宽度设定 */
+.btn-full {
+    width: 100%;
+}
+
+.btn-search {
+    width: 60px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.btn-down-report {
+    width: 170px;
+}
+
+/*
+.btn-submit, .btn-reset {
+    background: #d92942;
+    border-radius: 20px;
+    color: #fff;
+}*/
+
+/** 禁用按钮**/
+
+.pure-btn[disabled],
+.pure-btn-disabled,
+.pure-btn-disabled:hover,
+.pure-btn-disabled:focus,
+.pure-btn-disabled:active {
+    border: none;
+    background: #c6c6d4;
+    cursor: not-allowed;
+    box-shadow: none;
+    color: #444444;
+}
+
+.pure-btn-hidden {
+    display: none;
+}

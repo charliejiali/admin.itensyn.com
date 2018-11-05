@@ -1,0 +1,19 @@
+.m-show { display: none; }
+
+.m-hide { display: block; }
+
+@media (max-width: 768px) {
+
+    .m-show { display: block; }
+
+    .m-hide { display: none; }
+
+    body {
+        font-size: 18px;
+    }
+
+    .pure-g > div, .pure-g-c > div {
+        font-size: 18px;
+    }
+
+}

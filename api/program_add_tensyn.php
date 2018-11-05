@@ -6,15 +6,16 @@ include("../include/TensynRegex.class.php");
 $regex=new TensynRegex;
 $db=db_connect(); 
 $r=0;
-$msg="";
+$msg="tensyn ";
 $msg_array=array();
 
-$dir="crawler_log/".date("Ym");
+$dir="crawl_log/".date("Ym");
 $file=$dir."/".date("Ymd").".txt";
 
 if(!file_exists($dir)){
 	mkdir($dir);
 }
+
 
 do{
 	$data=$_REQUEST["data"];
@@ -56,9 +57,6 @@ do{
 			$program_default_name=$db->escape($d["program_default_name"]);
 			$platform=isset($d["platform"])?$db->escape($d["platform"]):"";
 
-			$log=date("Y-m-d H:i:s")." tensyn_program_log  ".$program_default_name."(".$platform.")";
-
-
 			$sql="
 				select * 
 				from tensyn_program 
@@ -70,8 +68,6 @@ do{
 			$tensyn_programs=$db->get_results($sql,ARRAY_A);
 			if(!$tensyn_programs){
 				$msg.="{$program_default_name}({$platform})无线上数据，忽略;";
-				$log.="不在tensyn_program表中;";
-				file_put_contents($file,$log.PHP_EOL, FILE_APPEND);
 				continue;
 			}
 
@@ -81,13 +77,17 @@ do{
 				foreach($fields as $field=>$name){
 					if($name==$cn){
 						$new[$field]=$value;
-						$log.="{$cn}({$field})={$value};";
 					}
 				}
 			}
 
 			foreach($tensyn_programs as $tensyn_program){
-				
+				$input=array_merge($tensyn_program,$new);
+				foreach($input as $k=>$v){
+					if(!array_key_exists($k,$fields)){
+						unset($input[$k]);
+					}
+				}
 				$sql_platform=$platform!==""?$platform:$tensyn_program["platform"];
 				$sql="
 					select *
@@ -98,34 +98,19 @@ do{
 				";
 				$old_program=$db->get_row($sql,ARRAY_A);
 				if(!$old_program){
-					$input=array_merge($tensyn_program,$new);
-					foreach($input as $k=>$v){
-						if(!array_key_exists($k,$fields)){
-							unset($input[$k]);
-						}
-					}
-
 					$input["status"]=0;
 					$input["delete_status"]=0;
 					$re=$db->add("tensyn_program_log",$input);
 					if(!$re){
 						$msg_array[]="{$program_default_name}({$platform}):".implode(",",$new)."插入失败";
-						$log.="插入失败";
-					}else{
-						$log.="插入成功";
 					}
 					$program_id=$db->insert_id;
-					file_put_contents($file,$log.PHP_EOL, FILE_APPEND);
 				}else{
-
-
 					$program_id=$old_program["program_id"];
-					$re=$db->update("tensyn_program_log",$new,array("program_id"=>$program_id));
+					$re=$db->update("tensyn_program_log",$input,array("program_id"=>$program_id));
 					if(!$re){
 						$msg_array[]="{$program_default_name}({$platform}):".implode(",",$new)."更新失败";
 					}
-					$log.="更新";
-					file_put_contents($file,$log.PHP_EOL, FILE_APPEND);
 				}
 
 				$sql=" select * from tensyn_unvalid_field where program_id='{$program_id}' ";
@@ -160,6 +145,8 @@ do{
 		$msg="success;".$msg;
 	}
 }while(false);
+
+file_put_contents($file, $msg, FILE_APPEND);
 
 echo json_encode(array(
 	"r"=>$r,
