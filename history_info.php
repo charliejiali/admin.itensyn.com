@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "剧目详情";
-$pageNavId = 7;
-$pageNavSub = 7;
+$pageNavId = 9;
+$pageNavSub = 9;
 
 include("function.php");
 $db=db_connect();
@@ -16,8 +16,8 @@ $head="
 ";
 
 $body="
-    from media_program as m
-    inner join tensyn_program as t
+    from media_program_history as m
+    inner join tensyn_program_history as t
         on m.program_default_name=t.program_default_name
         and m.platform=t.platform
 ";
@@ -288,7 +288,7 @@ $table_field=array(
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td><?php echo $t; ?></td>
-                                        <td><input <?php if(in_array(current($table_field),array("program_default_name","platform"))){echo "disabled";}?> value="<?php echo $old[current($table_field)]; ?>" name="<?php echo current($table_field);?>" type="text" placeholder="" class="input-form">
+                                        <td><input disabled value="<?php echo $old[current($table_field)]; ?>" name="<?php echo current($table_field);?>" type="text" placeholder="" class="input-form">
                                         </td>
                                     </tr>
                         <?php
@@ -326,20 +326,16 @@ $table_field=array(
 <script type="text/javascript">
     var media_id='<?php echo $media_id;?>';
     var tensyn_id='<?php echo $tensyn_id;?>';
+
     $('#submit').on('click',function(){
-        var input={};
-        $('input[name]').each(function(){
-            input[$(this).attr('name')]=$(this).val()
-        });
-        $.post('ajax/update_program.php',{
+        $.post('ajax/update_history.php',{
             media_id:media_id,
             tensyn_id:tensyn_id,
             start_type:$('#start_type option:selected').val(),
-            input:input
         },function(json){
              __BDP.alertBox('提示',json.msg,'','',function(){
                  if(json.r=1){
-                    window.location.href='program_list.php';
+                    window.location.href='history_list.php';
                 }
             });
         },'json');

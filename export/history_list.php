@@ -5,7 +5,15 @@ include("../include/PHPExcel.php");
 
 $db=db_connect();
 
+$type_status=array(
+    -1=>"删除",
+    0=>"新增",
+    1=>"未更新",
+    2=>"更新"
+);
+
 $table_name=array(
+    "状态",
     "剧目名称",
     "剧目原名",
     "资源类型",
@@ -109,6 +117,7 @@ $table_name=array(
     "合作权益形式数量（种）");
 
 $table_field=array(
+    "type_status",
     "program_name",
     "mprogram_default_name",
     "type",
@@ -132,7 +141,7 @@ $table_field=array(
     "topic7",
     "match1",
     "match2",
-    "mathc3",
+    "match3",
     "mplatform",
     "platform1",
     "platform2",
@@ -212,41 +221,48 @@ $table_field=array(
     "resource4"
 );
 
-$sql="select DISTINCT program_default_name from tensyn_program_log where platform='爱奇艺' and status=2";
-$program_names=$db->get_results($sql,ARRAY_A);
+$head=" select *,m.program_default_name as mprogram_default_name,m.platform as mplatform,t.play2 as tplay2,t.play3 as tplay3 ";
+$body="
+	from tensyn_program_history as t
+	inner join media_program_history as m
+		on t.program_default_name=m.program_default_name
+		and t.platform=m.platform
+";
+$where=" where m.program_id>0 ";
+$order=" order by m.program_id desc ";
 
-foreach($program_names as $names){
-    $name=$names["program_default_name"];
-    $sql="select * from tensyn_program_log where program_default_name='{$name}' and platform='爱奇艺' and status=2 order by program_id desc limit 1";
-    $tensyn=$db->get_row($sql,ARRAY_A);
-
-    $tensyn["tplay2"]=$tensyn["play2"];
-    $tensyn["tplay3"]=$tensyn["play3"];
-
-    $sql="select * from media_program_log where program_default_name='{$name}' and platform='爱奇艺' and status=2 order by program_id desc limit 1";
-    $media=$db->get_row($sql,ARRAY_A);
-
-    $media["mprogram_default_name"]=$media["program_default_name"];
-    $media["mplatform"]=$media["platform"];
-
-    $results[]=array_merge($tensyn,$media);
-
+if(count($_GET)>0){
+    foreach($_GET as $k=>$v){
+        $k=trim($k);
+        $v=$db->escape($v);
+        if($v===""){continue;}
+        switch($k){
+            case "start_date":
+                $start_date=$v." 00:00:00 ";
+                $where.=" and pass_time>='{$start_date}' ";
+                break;
+            case "end_date":
+                $end_date=$v." 23:59:59 ";
+                $where.=" and pass_time<='{$end_date}' ";
+                break;
+            case "type":
+                $where.=" and m.platform like '%{$v}%' ";
+                break;
+            case "program_name":
+                $where.=" and program_name like '%{$v}%' ";
+                break;
+            case "year":
+                $where.=" and play_time like '%{$v}%' ";
+                break;
+            case "season":
+                $where.=" and play_time like '%{$v}%' ";
+                break;
+        }
+    }
 }
 
-
-
-//$head=" select *,m.program_default_name as mprogram_default_name,m.platform as mplatform,t.play2 as tplay2,t.play3 as tplay3 ";
-//$body="
-//	from tensyn_program as t
-//	inner join media_program as m
-//		on t.program_default_name=m.program_default_name
-//		and t.platform=m.platform
-//";
-//$where=" where m.program_id>0 ";
-//$order=" order by m.program_id desc ";
-//
-//$sql=$head.$body.$where.$order;
-//$results=$db->get_results($sql,ARRAY_A);
+$sql=$head.$body.$where.$order;
+$results=$db->get_results($sql,ARRAY_A);
 
 if($results){
     $objPHPExcel = new PHPExcel();

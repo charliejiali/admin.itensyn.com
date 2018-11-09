@@ -1,5 +1,67 @@
 <?php 
 class Program{
+	public static function get_download_list($offset,$pagecount,$options=array()){
+		$db=db_connect();
+		$offset=$db->escape($offset);
+		$pagecount=$db->escape($pagecount);
+
+		$head=" select * ";
+		$count_head=" select count(*) ";
+		$body="
+			from media_program as m
+			left join tensyn_program_name as t
+			on m.program_default_name=t.program_default_name and m.platform=t.platform
+		";
+		$where="
+			where m.program_default_name not in (
+				select program_default_name
+				from program
+			)
+		";
+		$order=" order by m.program_id desc ";
+
+		$limit=" limit {$offset},{$pagecount} ";
+
+
+		if(count($options)>0){
+			foreach($options as $k=>$v){
+				$k=trim($k);
+				$v=$db->escape($v);
+				if($v===""){continue;}
+				switch($k){
+					case "start_date":
+						$start_date=$v." 00:00:00 ";
+						$where.=" and m.pass_time>='{$start_date}' ";
+						break;
+					case "end_date":
+						$end_date=$v." 23:59:59 ";
+						$where.=" and m.pass_time<='{$end_date}' ";
+						break;
+					case "program_name":
+						$where.=" and m.program_name like '%{$v}%' ";
+						break;
+					case "year":
+						$where.=" and m.play_time like '%{$v}%' ";
+						break;
+					case "season":
+						$where.=" and m.play_time like '%{$v}%' ";
+						break;
+				}
+			}
+		}
+
+		$sql=$head.$body.$where.$order.$limit;
+
+		$count_sql=$count_head.$body.$where.$order;
+		$data=$db->get_results($sql,ARRAY_A);
+		$count=$db->get_var($count_sql);
+		$page_count=ceil($count/$pagecount);
+		return array(
+			"data"=>$data,
+			"count"=>$count,
+			"page_count"=>$page_count
+		);
+	}
 	public static function get_valid_list($offset,$pagecount,$options=array()){
 		$db=db_connect();
 		$offset=$db->escape($offset);
@@ -13,7 +75,7 @@ class Program{
 			on m.program_default_name=t.program_default_name and m.platform=t.platform
 		";
 		$where=" where m.program_id>0 ";
-		$order=" order by t.tensyn_name,m.program_id desc ";
+		$order=" order by m.program_id desc,t.tensyn_name ";
 
 		$limit=" limit {$offset},{$pagecount} ";
 		
@@ -78,7 +140,7 @@ class Program{
 		$count_sql=$count_head.$body.$where.$order.$limit;
 		$data=$db->get_results($sql,ARRAY_A);
 		$count=$db->get_var($count_sql);
-		$page_count=ceil($total_count/$pagecount);
+		$page_count=ceil($count/$pagecount);
 		return array(
 			"data"=>$data,
 			"total_count"=>$count,
@@ -286,30 +348,6 @@ class Program{
         }
         return $data;
 	}
-	// public static function check_attach_log($program_id){
-	// 	$db=db_connect(); 
-
-	// 	$data=array(
-	// 		"poster"=>"未上传",
-	// 		"resource"=>"未上传",
-	// 		"video"=>"未上传",
-	// 	); 
-
-	// 	$sql=" 
-	// 		select * 
-	// 		from media_attach_log 
-	// 		where program_id='{$program_id}' 
-	// 	";
- //        $attachs=$db->get_results($sql,ARRAY_A);
- //        if($attachs){
- //        	foreach($attachs as $attach){
- //        		if(array_key_exists($attach["type"],$data)){
- //        			$data[$attach["type"]]="已上传";
- //        		} 
- //        	}
- //        }
- //        return $data;
-	// }
 	public static function check_attach_log($program_id,$program_default_name,$platform){
 		$db=db_connect(); 
 

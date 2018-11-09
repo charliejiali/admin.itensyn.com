@@ -164,9 +164,17 @@ class TensynInput{
 				} 
 				$sql="select * from media_program where program_default_name='{$program_default_name}' and platform='{$platform}' limit 1";
 				$media=$db->get_row($sql,ARRAY_A);
-				print_r($db->last_error);
-				// echo $sql;
-				// print_r($media);  
+
+				$crawler_media=array(
+					"play2"=>$u["mplay2"],
+					"play4"=>$u["mplay4"],
+					"play5"=>$u["mplay5"],
+				);
+				$crawler_diff=array_diff_assoc($crawler_media,$media);
+				if(count($crawler_diff)>0){
+					$db->update("media_program",$crawler_diff,array("program_id"=>$media["program_id"]));
+				}
+
 				foreach($media as $k=>$v){
 					if(array_key_exists($media_switch[$k],$field_list)){
 						if(in_array($media_switch[$k],$weights)){

@@ -333,7 +333,7 @@ class Crawler{
 		);
 
 		$name=$db->escape($name);
-		if($name===""){
+		if($name!=""){
 			$identity=$db->escape($identity);
 			$sql="select * from crawler_video_masterpiece where name='{$name}' and identity='{$identity}'";
 			$result=$db->get_row($sql,ARRAY_A);

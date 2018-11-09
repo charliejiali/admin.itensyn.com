@@ -132,18 +132,18 @@ $crawler_status=Crawler::get_crawler_status();
                                 <td>女主演</td>
                                 <td><input name="female" type="text" placeholder="" class="input-form" value="<?php echo $old["female"];?>"></td>
                             </tr>
+                            <?php if($creator!=""){ ?>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="color-red"><?php echo $creator;?></td>
+                                </tr>
+                            <?php } ?>
                             <tr>
                                 <td class="color-red"></td>
                                 <td>女主演代表作</td>
                                 <td><input name="female_program" type="text" placeholder="" class="input-form" value="<?php echo $old["female_program"];?>"></td>
                             </tr>
-                            <?php if($creator!=""){ ?>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="color-red"><?php echo $creator;?></td>
-                            </tr>
-                            <?php } ?>
                             <tr>
                                 <td class="color-red"></td>
                                 <td>女主演代表作URL</td>

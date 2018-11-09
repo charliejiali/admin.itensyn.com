@@ -1,5 +1,69 @@
 <?php 
 class Tensyn{
+	public static function get_history_list($offset=false,$pagecount=false,$options=array()){
+		$db=db_connect();
+
+		$head=" select *,t.program_id as tensyn_id,m.program_id as media_id,t.play2 as tplay2,t.play3 as tplay3 ";
+		$count_head=" select count(*) ";
+		$body="
+			from tensyn_program_history as t
+			inner join media_program_history as m
+				on t.program_default_name=m.program_default_name
+				and t.platform=m.platform
+			inner join tensyn_program_name as n
+				on n.program_default_name=m.program_default_name
+				and m.platform=n.platform
+		";
+		$where=" where t.program_id>0 ";
+		$order=" order by t.program_id desc ";
+
+		if($offset!==false&&$pagecount!==false){
+			$limit=" limit {$offset},{$pagecount} ";
+		}else{
+			$limit="";
+		}
+
+		if(count($options)>0){
+			foreach($options as $k=>$v){
+				$k=trim($k);
+				$v=$db->escape($v);
+				if($v===""){continue;}
+				switch($k){
+					case "start_date":
+						$start_date=$v." 00:00:00 ";
+						$where.=" and t.pass_time>='{$start_date}' ";
+						break;
+					case "end_date":
+						$end_date=$v." 23:59:59 ";
+						$where.=" and t.pass_time<='{$end_date}' ";
+						break;
+					case "type":
+						$where.=" and m.platform like '%{$v}%' ";
+						break;
+					case "program_name":
+						$where.=" and m.program_name like '%{$v}%' ";
+						break;
+					case "year":
+						$where.=" and m.play_time like '%{$v}%' ";
+						break;
+					case "season":
+						$where.=" and m.play_time like '%{$v}%' ";
+						break;
+				}
+			}
+		}
+
+		$sql=$head.$body.$where.$order.$limit;
+		$count_sql=$count_head.$body.$where.$order;
+		$data=self::make_show_data($db->get_results($sql,ARRAY_A));
+		$count=$db->get_var($count_sql);
+		$page_count=ceil($count/$pagecount);
+		return array(
+			"data"=>$data,
+			"count"=>$count,
+			"page_count"=>$page_count
+		);
+	}
 	public static function update_start_type($program_id,$start_type){
 		$db=db_connect();
 		$r=0;
@@ -107,34 +171,7 @@ class Tensyn{
 			"text"=>$text
 		);
 	}
-	// public static function check_attachs($program_id,$tprogram_id){
-	// 	$db=db_connect();
-	// 	$data=array(
-	// 		"poster"=>"",
-	// 		"male"=>"",
-	// 		"female"=>"",
-	// 		"host"=>"",
-	// 		"guest"=>""
-	// 	);
 
-	// 	$program_id=$db->escape($program_id);
-	// 	$tprogram_id=$db->escape($tprogram_id);
-
-	// 	$sql=" select * from media_attach where program_id='{$program_id}' and type='poster' ";
-	// 	$poster=$db->get_row($sql,ARRAY_A);
-	// 	if($poster){
-	// 		$data["poster"]=$poster["url"];
-	// 	}
-
-	// 	$sql=" select * from tensyn_attach where program_id='{$tprogram_id}' ";
- //        $attachs=$db->get_results($sql,ARRAY_A);
- //        if($attachs){
- //        	foreach($attachs as $attach){
- //        		$data[$attach["type"]]=$attach["url"]; 
- //        	}
- //        }
- //        return $data;
-	// }
 	public static function check_attachs($program_id,$program_default_name,$platform){
 		$db=db_connect();
 		$data=array(
@@ -257,15 +294,17 @@ class Tensyn{
 	} 
 	public static function get_valid_list($offset=false,$pagecount=false,$options=array()){
 		$db=db_connect();
-		$user_id=$db->escape($user_id);
 
-		$head=" select *,t.program_id as tprogram_id,t.play2 as tplay2,t.play3 as tplay3 ";
+		$head=" select *,t.program_id as tensyn_id,m.program_id as media_id,t.play2 as tplay2,t.play3 as tplay3 ";
 		$count_head=" select count(*) ";
 		$body=" 
 			from tensyn_program as t 
-			inner join media_program as m 
+			inner join media_program as m
 				on t.program_default_name=m.program_default_name
 				and t.platform=m.platform
+			inner join tensyn_program_name as n
+				on n.program_default_name=m.program_default_name
+				and m.platform=n.platform
 		";
 		$where=" where t.program_id>0 ";
 		$order=" order by t.program_id desc ";
@@ -289,9 +328,6 @@ class Tensyn{
 					case "end_date":
 							$end_date=$v." 23:59:59 ";
 							$where.=" and t.pass_time<='{$end_date}' ";
-						break;
-					case "status":
-						$where.=" and t.status='{$v}' ";
 						break;
 					case "type":
 						$where.=" and m.type like '%{$v}%' ";
@@ -387,13 +423,10 @@ class Tensyn{
 				}
 			}
 
-			// $sql=" select * from level2_weights ";
-			// $results=$db->get_results($sql,ARRAY_A);
-			// if($results){
-			// 	foreach($results as $r){
-			// 		$weights[]=$r["field"];
-			// 	}
-			// }
+			$fields["累计播放量"]="mplay2";
+			$fields["已播集数"]="mplay4";
+			$fields["实际单集播放量"]="mplay5";
+
 			return array(
 				"fields"=>$fields,
 				"weights"=>$weights
@@ -515,6 +548,7 @@ class Tensyn{
 					}
 				}
 			}
+
 			// 数据检验
 			$sql=" select * from tensyn_unvalid_field where program_id='{$program_id}' ";
 			$old=$db->get_results($sql,ARRAY_A);

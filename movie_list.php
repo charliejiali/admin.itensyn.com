@@ -96,7 +96,7 @@ $type_status=array(
                     <div class="pure-u-1-3">
                         <input id="program_name" value="<?php echo $_GET["program_name"];?>" type="text" placeholder="剧目名称" class="input-label" style="width: 170px;">
                         <button id="search" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">查询</button>
-                        <button id="export" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">导出</button>
+<!--                        <button id="export" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">导出</button>-->
                     </div>
                     <div class="clear"></div>
                 </div>

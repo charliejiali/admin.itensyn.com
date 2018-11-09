@@ -1,32 +1,23 @@
 <?php
-$pageTitle = "审核录入单";
-$pageNavId = 3;
-$pageNavSub = 32;
+$pageTitle = "正在评估的剧目";
+$pageNavId = 7;
+$pageNavSub = 7;
 
 include("function.php");
-include("include/Program.class.php");
 include("include/Tensyn.class.php");
-include("include/TensynInput.class.php");
 
-$input_id=$_GET["id"];
 $page=isset($_GET["p"])?intval($_GET["p"]):1;
-$pagecount=isset($_GET["c"])?intval($_GET["c"]):500; //每页显示数量
+$pagecount=isset($_GET["c"])?intval($_GET["c"]):5; //每页显示数量
 $offset=($page-1)*$pagecount;
- 
-$result=TensynInput::get_programs($input_id,$offset,$pagecount);
+
+$result=Tensyn::get_valid_list($offset,$pagecount,$_GET);
 $list=$result["data"];
-$list_count=$result["total_count"];
+$list_count=$result["count"];
 $page_count=$result["page_count"];
 
-$input=TensynInput::get_info($input_id);
-$type_status=array(
-    -1=>"delete",
-    0=>"new",
-    1=>"same",
-    2=>"update"
-);
-$status=Program::get_status();
-$upload_buttons=array("poster","male","female","host","guest");
+$system_year=array("2018","2019","2020","2021","2022");
+$system_season=array("Q1","Q2","Q3","Q4");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,10 +25,11 @@ $upload_buttons=array("poster","male","female","host","guest");
     <?php include_once("module/head_tag.php"); ?>
 
     <script type="text/javascript" src="js/libs/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="./js/pages/movie_log_auditing.js" type="text/javascript"></script>
+    <script src="./js/pages/tensyn_movie_list.js" type="text/javascript"></script>
+
     <style>
         #table-data .td-control, #table-control .td-control {
-            width: 150px;
+            /*width: 120px;*/
         }
     </style>
 </head>
@@ -52,46 +44,59 @@ $upload_buttons=array("poster","male","female","host","guest");
         <?php include_once("module/header.php"); ?>
 
         <div class="content">
-            <div class="pull-right">
-                <a href="#" type="submit" class="pure-btn btn-red">返回</a>
-            </div>
-            <div class="pure-g">
-                <div class="pure-u-1-6"><span class="label-tag">审核中</span></div>
-                <div class="pure-u-2-3">
-                    <table class="pure-table pure-table-none">
-                        <tr>
-                            <!-- <td>供应商：北京爱奇艺科技有限公司</td> -->
-                            <td>提交日期：<?php echo $input["create_date"];?></td>
-                            <td>备注信息：<?php echo $input["remark"];?></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <!--div class="pull-right">
+                <button type="submit" class="pure-btn btn-large btn-red">+ 录入数据</button>
+            </div-->
+            <h3 class="title">数据管理</h3>
 
-            <div style="padding-top: 2em;text-align: center">
-                <button id="audit" type="button" class="pure-btn btn-large btn-red">审 核</button>
-                &nbsp;
-                &nbsp;
-                <a href="tensyn_movie_log_audit_h.php?id=<?php echo $input_id;?>"  class="pure-btn btn-large btn-red">横向审核方式</a>
+            <div class="form-eval">
+                <div class="pure-g">
+                    <div class="pure-u-1-3">
+                        <label for="name">上线时间</label>
+                        <input value="<?php echo $_GET["start_date"];?>" id="start_date" type="text" placeholder="" class="input-label" style="width:98px"> -
+                        <input value="<?php echo $_GET["end_date"];?>" id="end_date" type="text" placeholder="" class="input-label" style="width:98px">
+                    </div>
+                    <div class="pure-u-1-3">
+                        <label for="type">资源类型</label>
+                        <input value="<?php echo $_GET["type"];?>" id="type" type="text" placeholder="" class="input-label" >
+                    </div>
+                    <div class="pure-u-1-3">
+                        <label for="position">播出时间</label>
+                        <select class="form-control" id="select_year" style="width:90px">
+                            <option value="">全部</option>
+                            <?php foreach($system_year as $sy){ ?>
+                                <option value="<?php echo $sy;?>" <?php if($sy==$_GET["year"]&&trim($_GET["year"])!==""){echo "selected";}?> ><?php echo $sy;?></option>
+                            <?php } ?>
+                        </select>
+                        年
+                        <select class="form-control" id="select_season" style="width:90px">
+                            <option value="">全部</option>
+                            <?php foreach($system_season as $ss){ ?>
+                                <option value="<?php echo $ss;?>" <?php if($ss==$_GET["season"]&&trim($_GET["season"])!==""){echo "selected";}?> ><?php echo $ss;?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <input value="<?php echo $_GET["program_name"];?>" id="program_name" type="text" placeholder="剧目名称" class="input-label" style="width: 170px;">
+                        <button id="btn_search" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">查询</button>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <button id="export" type="button" class="pure-btn btn-red" style="width:60px;padding-left: 1em; padding-right: 1em; ">导出</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
         </div>
         <div class="content">
-            <div class="pull-right">
-                <button id="batch_yes" type="button" class="pure-btn">批量通过</button>
-                <button id="batch_no" type="button" class="pure-btn">批量拒绝</button>
-            </div>
-            <h3 class="title">录入单: <?php echo $input["name"];?></h3>
-            <br class="clear">
             <div class="table-box">
                 <div class="table-list">
                     <div id="table-data">
-                        <table class="pure-table pure-table-line pure-table-striped pure-table-hover" style="width: 18800px">
+                        <table class="pure-table pure-table-line pure-table-striped pure-table-hover" style="width: 20000px">
                             <thead>
                             <tr>
-                                <th>标记</th>
-                                <th>状态</th>
-                                <th>剧目名称</th>
+                                <th class="td-head" style="width: 120px;">剧目名称</th>
                                 <th>剧目原名</th>
+                                <th>腾信原名</th>
                                 <th>资源类型</th>
                                 <th width="500">简介</th>
                                 <th>播出时间</th>
@@ -191,23 +196,14 @@ $upload_buttons=array("poster","male","female","host","guest");
                                 <th>招商资源包总刊例价（万元）</th>
                                 <th>站内推广资源总价值（万元）</th>
                                 <th>合作权益形式数量（种）</th>
-                                <th>剧集海报</th>
-                                <th>男主演照片</th>
-                                <th>女主演照片</th>
-                                <th>主持人照片</th>
-                                <th>常驻嘉宾照片</th>
-                                <th class="td-control">编辑</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php foreach($list as $l){ ?>
                             <tr >
-                                <td>
-                                    <div name="select" id="<?php echo $l["tprogram_id"];?>" class="input-checkbox"></div>
-                                        <span class="movie-tag <?php echo $type_status[$l["type_status"]];?>"></span></td>
-                                <td id="<?php echo $l["tprogram_id"];?>"><?php echo $status[$l["tstatus"]];?></td>
-                                <td><?php echo $l["program_name"];?></td>
+                                <td class="td-head"><a href="movie_info.php?mid=<?php echo $l["media_id"].'&tid='.$l["tensyn_id"];?>"><?php echo $l["program_name"];?></a></td>
                                 <td><?php echo $l["program_default_name"];?></td>
+                                <td><?php echo $l["tensyn_name"];?></td>
                                 <td><?php echo $l["type"];?></td>
                                 <td><?php echo csubstr($l["intro"],0,80);?></td>
                                 <td><?php echo $l["play_time"];?></td>
@@ -229,7 +225,7 @@ $upload_buttons=array("poster","male","female","host","guest");
                                 <td><?php echo $l["topic7"];?></td>
                                 <td><?php echo $l["match1"];?></td>
                                 <td><?php echo $l["match2"];?></td>
-                                <td><?php echo $l["match3"];?></td>
+                                <td><?php echo $l["mathc3"];?></td>
                                 <td><?php echo $l["platform"];?></td>
                                 <td><?php echo $l["platform1"];?></td>
                                 <td><?php echo $l["platform2"];?></td>
@@ -248,10 +244,10 @@ $upload_buttons=array("poster","male","female","host","guest");
                                 <td><?php echo $l["channel3"];?></td>
                                 <td><?php echo $l["start_type"];?></td>
                                 <td><?php echo $l["play1"];?></td>
-                                <td><?php echo $l["mplay2"];?></td>
+                                <td><?php echo $l["play2"];?></td>
                                 <td><?php echo $l["play3"];?></td>
-                                <td><?php echo $l["mplay4"];?></td>
-                                <td><?php echo $l["mplay5"];?></td>
+                                <td><?php echo $l["play4"];?></td>
+                                <td><?php echo $l["play5"];?></td>
                                 <td><?php echo $l["play6"];?></td>
                                 <td><?php echo $l["tplay2"];?></td>
                                 <td><?php echo $l["content_type"];?></td>
@@ -307,33 +303,15 @@ $upload_buttons=array("poster","male","female","host","guest");
                                 <td><?php echo $l["resource2"];?></td>
                                 <td><?php echo $l["resource3"];?></td>
                                 <td><?php echo $l["resource4"];?></td>
-                                <?php 
-                                    $program_id=$l["program_id"];
-                                    $tprogram_id=$l["tprogram_id"];
-                                    $attachs=Tensyn::check_attachs_log($program_id,$tprogram_id);
-                                    foreach($upload_buttons as $b){
-                                ?>
-                                <td> 
-                                    <?php if($attachs[$b]!=""){ ?>
-                                    <img src="<?php echo UPLOAD_URL.$attachs[$b];?>" class="img-poster">
-                                    <?php }?>
-                                </td>
                                 <?php } ?>
-                                <td class="td-control">
-                                <?php if($l["status"]!=3){ ?>
-                                    <a name="yes" id="<?php echo $l["tprogram_id"];?>" type="button" class="pure-btn btn-min">通过</a>
-                                    <a name="no" id="<?php echo $l["tprogram_id"];?>" type="button" class="pure-btn btn-min">拒绝</a> 
-                                <?php } ?>
-                                </td>
-                            </tr>
-                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="table-control" id="table-control" style="width: 150px;">
-                    <!-- <table class="pure-table pure-table-none pure-table-striped" style="width: 1200px"></table>-->
-                </div>
+<!--                <div class="table-control" id="table-control" style="width: 120px;">-->
+<!--                    <table class="pure-table pure-table-none pure-table-striped" style="width: 120px"></table>-->
+<!--                </div>-->
+                <div class="table-head" id="table-head" style="width: 120px;"></div>
             </div>
             <br>
             <div class="table-footer">
@@ -345,8 +323,7 @@ $upload_buttons=array("poster","male","female","host","guest");
                     <a id="page_last" href="javascript:;" class="btn-page">尾页</a>
                     <input id="pageNum" type="text" value="<?php echo $page;?>" class="input-num" size="2">
                 </div>
-                <div class="input-checkbox-all"></div>
-                全选 &nbsp; 记录共<?php echo $list_count;?>条，<?php echo $page_count;?>页
+                记录共<?php echo $list_count;?>条，<?php echo $page_count;?>页
             </div>
         </div>
         <!-- page01 End -->
@@ -355,73 +332,37 @@ $upload_buttons=array("poster","male","female","host","guest");
     </div>
 
 </div>
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+<script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript">
     var page=parseInt('<?php echo $page;?>');
     var page_count='<?php echo $page_count;?>';
-    var input_id='<?php echo $input_id;?>';
     var params={};
     params["p"]=page;
     params["c"]='<?php echo $pagecount;?>';
-    params["id"]=input_id;
+    params["start_date"]='<?php echo $_GET["start_date"];?>';
+    params["end_date"]='<?php echo $_GET["end_date"];?>'
+    params["status"]='<?php echo $_GET["status"];?>'
+    params["year"]='<?php echo $_GET["year"];?>'
+    params["season"]='<?php echo $_GET["season"];?>'
+    params["type"]='<?php echo $_GET["type"];?>'
+    params["program_name"]='<?php echo $_GET["program_name"];?>'
 
-    $('#audit').on('click',function(){
-        $.post('ajax/tensyn_input_audit.php',{input_id:input_id},function(json){
-             __BDP.alertBox('提示',json.msg,'','',function(){
-                if(json.r==1){window.location.href='tensyn_movie_log.php';}
-            });
-        },'json');
+    $('#btn_search').on('click',function(){
+        params["start_date"]=$('#start_date').val();
+        params["end_date"]=$('#end_date').val();
+        params["status"]=$('#select_status option:selected').val();
+        params["year"]=$('#select_year option:selected').val();
+        params["season"]=$('#select_season option:selected').val();
+        params["type"]=$('#type').val();
+        params["program_name"]=$('#program_name').val();
+
+        window.location.href='tensyn_movie_list.php?'+$.param(params);
     });
-    $('#table-control ').on('click','a[name]',function(){
-        var program_id=$(this).attr('id');
-        var type=$(this).attr('name');
-        $.post('ajax/tensyn_audit.php',{program_id:program_id,type:type},function(json){
-            __BDP.alertBox('提示',json.msg,'','',function(){
-                if(json.r==1){$('td[id="'+program_id+'"]').text(json.text);}
-            });
-        },'json');
-    }); 
-    // $('#table-control ').on('click','a[name="yes"]',function(){
-    //     var program_id=$(this).attr('id');
-    //     $.post('ajax/program_audit.php',{program_id:program_id,type:'yes'},function(json){
-    //         __BDP.alertBox('提示',json.msg,'','',function(){
-    //             if(json.r==1){$('td[id="'+program_id+'"]').text('审批通过');}
-    //         });
-    //     },'json');
-    // }); 
-    $('button[id^="batch"]').on('click',function(){
-        var program_id=$('div[name="select"].active').map(function(){
-            return $(this).attr('id');
-        }).get().join(',');
-        var type=$(this).attr('id').split('_')[1];
 
-        $.post('ajax/tensyn_audit.php',{program_id:program_id,type:type},function(json){
-            __BDP.alertBox('提示',json.msg,'','',function(){
-                if(json.r==1){window.location.href=window.location.href;}
-            }); 
-        },'json');
-    });
-    // $('#table-control ').on('click','a[name="no"]',function(){
-    //     var program_id=$(this).attr('id');
-    //     $.post('ajax/program_audit.php',{program_id:program_id,type:'no'},function(json){
-    //         __BDP.alertBox('提示',json.msg,'','',function(){
-    //             if(json.r==1){$('td[id="'+program_id+'"]').text('审批未通过');}
-    //         });
-    //     },'json');
-    // });
-    // $('#batch_no').on('click',function(){
-    //     var program_id=$('div[name="select"].active').map(function(){
-    //         return $(this).attr('id');
-    //     }).get().join(',');
-
-    //     $.post('ajax/tensyn_audit.php',{program_id:program_id,type:'no'},function(json){
-    //         __BDP.alertBox('提示',json.msg,'','',function(){
-    //             if(json.r==1){window.location.href=window.location.href;}
-    //         }); 
-    //     },'json');
-    // });
     $('a[id^="page"]').on('click',function(){
         var type=$(this).attr('id').split('_')[1];
-        
+
         switch(type){
             case "first":
                 params["p"]=1;
@@ -435,10 +376,10 @@ $upload_buttons=array("poster","male","female","host","guest");
                 params["p"]=page+1;
                 break;
             case "last":
-                params["p"]=page_count; 
-                break; 
+                params["p"]=page_count;
+                break;
         }
-        window.location.href='tensyn_movie_log_auditing.php?'+$.param(params);
+        window.location.href='tensyn_movie_list.php?'+$.param(params);
     });
     $('#pageNum').on('keypress',function(e){
         var value=parseInt($(this).val());
@@ -446,11 +387,31 @@ $upload_buttons=array("poster","male","female","host","guest");
             if(value<=0||value>page_count||isNaN(value)){
                 return false;
             }else{
-                params["p"]=value; 
-                window.location.href='tensyn_movie_log_auditing.php?'+$.param(params);
+                params["p"]=value;
+                window.location.href='tensyn_movie_list.php?'+$.param(params);
             }
         }
-    }); 
+    });
+    // $('a[id^="edit_"]').on('click',function(){
+    //     var id=$(this).attr('id').split('_')[1];
+    //     window.location.href='movie_edit.php?id='+id;
+    // });
+//    $('#table-control').on('click','button[name="delete"]',function(){
+//        $.post('ajax/tensyn_delete.php',{program_id:$(this).attr('id').split('_')[1]},function(json){
+//            __BDP.alertBox("提示",json.msg);
+//            if(json.r==1){window.location.reload();}
+//        },'json');
+//    });
+
+    $('#export').on('click',function(){
+        window.open('export/movie_list.php?'+$.param(params));
+    });
+    $( "#start_date" ).datepicker({
+        dateFormat:'yy-mm-dd'
+    });
+    $( "#end_date" ).datepicker({
+        dateFormat:'yy-mm-dd'
+    });
 </script>
 </body>
 </html>

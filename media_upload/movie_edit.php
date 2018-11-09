@@ -1,6 +1,7 @@
 <?php
-$pageTitle = "剧目管理";
-$pageNavId = 7;
+$pageTitle = "媒体剧目上传";
+$pageNavId = 2;
+$pageNavSub = 27;
 
 // $public_page=true;
 include("../function.php");

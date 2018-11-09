@@ -122,7 +122,9 @@ $system_season = array("Q1", "Q2", "Q3", "Q4");
                             $upload_buttons = array("poster", "resource", "video");
                             foreach ($list as $l) {
                                 $program_id = $l["program_id"];
-                                $attachs = Program::check_attach_log($program_id);
+                                $program_default_name=$l["program_default_name"];
+                                $platform=$l["platform"];
+                                $attachs = Program::check_attach_log($program_id,$program_default_name,$platform);
                                 ?>
                                 <tr>
                                     <td class="td-head" id="<?php echo $l["program_id"]; ?>"><?php echo $l["program_name"]; ?></td>

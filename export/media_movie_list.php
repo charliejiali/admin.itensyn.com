@@ -119,10 +119,10 @@ $table_name=array(
 $table_field=array(
 "type_status",
 "program_name",
-"mprogram_default_name",
+"program_default_name",
 "type",
 "play_time",
-"mplatform",
+"platform",
 "start_time",
 "copyright",
 "start_type",
@@ -221,20 +221,17 @@ $table_field=array(
 "resource4"
 );
 
+$head=" select *,play1 as mplay1,play2 as mplay2,play3 as mplay3,play4 as mplay4,play5 as mplay5,play6 as mplay6 ";
+$count_head=" select count(*) ";
+$body=" from media_program ";
+$where="
+			where program_default_name not in (
+				select program_default_name
+				from program
+			)
+		";
+$order=" order by program_id desc ";
 
-$head=" 
-	select *,m.program_default_name as mprogram_default_name,m.platform as mplatform,
-	m.play1 as mplay1,m.play2 as mplay2,m.play3 as mplay3,m.play4 as mplay4,m.play5 as mplay5,m.play6 as mplay6,
-	t.play2 as tplay2,t.play3 as tplay3 
-";
-$body=" 
-	from media_program as m
-	left join tensyn_program as t 
-		on t.program_default_name=m.program_default_name
-		and t.platform=m.platform
-";
-$where=" where m.program_id>0 ";
-$order=" order by m.program_id desc ";
 
 if(count($_GET)>0){
 	foreach($_GET as $k=>$v){
@@ -244,26 +241,20 @@ if(count($_GET)>0){
 		switch($k){
 			case "start_date":
 					$start_date=$v." 00:00:00 ";
-					$where.=" and m.pass_time>='{$start_date}' ";
+					$where.=" and pass_time>='{$start_date}' ";
 				break;
 			case "end_date":
 					$end_date=$v." 23:59:59 ";
-					$where.=" and m.pass_time<='{$end_date}' ";
-				break;
-			case "status":
-				$where.=" and m.status='{$v}' ";
-				break;
-			case "type":
-				$where.=" and m.type like '%{$v}%' ";
+					$where.=" and pass_time<='{$end_date}' ";
 				break;
 			case "program_name":
-				$where.=" and m.program_name like '%{$v}%' ";
+				$where.=" and program_name like '%{$v}%' ";
 				break;
 			case "year":
-				$where.=" and m.play_time like '%{$v}%' ";
+				$where.=" and play_time like '%{$v}%' ";
 				break;
 			case "season":
-				$where.=" and m.play_time like '%{$v}%' ";
+				$where.=" and play_time like '%{$v}%' ";
 				break;	
 		}
 	}
@@ -321,12 +312,12 @@ foreach($tiebas as $t){
 }
 
 if($results){
-	$objPHPExcel = new PHPExcel(); 
+	$objPHPExcel = new PHPExcel();
 	$objPHPExcel->setActiveSheetIndex(0);
 
 	$row=1;
 	$col=0;
-	  
+
 	foreach($table_name as $name){
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $name);
 		$col++;
@@ -336,7 +327,7 @@ if($results){
 	foreach($results as $result){
 		$col=0;
 
-		$program_name=$result["mprogram_default_name"];
+		$program_name=$result["program_default_name"];
 
 		$cache_program=array();
 		if(isset($program_name,$cache_video)){
@@ -390,7 +381,7 @@ if($results){
 							break;
 						case "team_main": // 制作团队代表作
 							$value=$cache_role[$team]["team"];
-							break; 
+							break;
 
 						// 视频
 						case "mplay5": // 单集播放量
@@ -441,7 +432,9 @@ if($results){
 							$value=$cache_weibo[$_female_program_name]["discuss"];
 							break;
 						case "star1": // 男女主演微博粉丝数
-							$value=floatval($cache_weibo[$male]["followers"])+floatval($cache_weibo[$female]["followers"]);
+							if($male!=""||$female!="") {
+								$value = floatval($cache_weibo[$male]["followers"]) + floatval($cache_weibo[$female]["followers"]);
+							}
 							break;
 						case "topic5": // 主持人过往代表作微博话题量
 							$_host_program_name=$cache_role[$host]["host"];
@@ -451,6 +444,7 @@ if($results){
 							$value=$cache_weibo[$guest]["discuss"];
 							break;
 						case "star2": // 主持人及常驻嘉宾微博粉丝数
+							if($host!=""||$guest!="")
 							$value=floatval($cache_weibo[$host]["followers"])+floatval($cache_weibo[$guest]["followers"]);
 							break;
 
@@ -483,9 +477,9 @@ if($results){
 				}else{
 					$value=$result[$f]==-1?"":$result[$f];
 				}
-			}	
+			}
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $value);
-			$col++; 
+			$col++;
 		}
 		$row++;
 	}
@@ -494,7 +488,7 @@ if($results){
 	header('Content-Disposition: attachment;filename="'.date("YmdHis").'.xlsx"');
 	header('Cache-Control: max-age=0');
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	// $objWriter = new PHPExcel_Writer_HTML($objPHPExcel); 
+//	$objWriter = new PHPExcel_Writer_HTML($objPHPExcel);
 	$objWriter->save('php://output');
 }
 exit();
